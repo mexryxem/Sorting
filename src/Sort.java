@@ -1,11 +1,13 @@
+import java.util.Arrays;
 
 public class Sort {
 	
 	public static void main(String[] args){
-		int[] list = {5, 7, 1, 9, 2, 8};
+		int[] list1 = {1, 6, 7, 10, -3, -2, 6, 9}; 
+		int[] merged = new int[list1.length];
 		
-		insertionSort(list);
-		printArray(list);
+		merge(list1, merged, 0, 4, 7);
+		printArray(merged);
 	}
 	
 	private static void printArray(int[] arr){
@@ -53,6 +55,29 @@ public class Sort {
 			}
 		}
 	}
+	
+	/**
+	 * bugs: didn't get the last iteration
+	 * 
+	 */
+	public static void merge(int[] a, int[] temp, int list1min, int list2min, int list2end){
+		int counter = 0;
+		
+		while(list2min <= list2end){
+			if(a[list1min] <= a[list2min]){
+				temp[counter] = a[list1min];
+				list1min ++;
+			} else{
+				temp[counter] = a[list2min];
+				list2min++;
+			}
+			
+			counter ++;
+		}
+		
+		a = Arrays.copyOfRange(temp, list1min, list2end);
+	}
+	
 	
 	public static void mergeSort(int[] arr){
 		
