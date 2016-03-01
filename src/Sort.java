@@ -53,4 +53,8 @@ public class Sort {
 			}
 		}
 	}
+	
+	public static void mergeSort(int[] arr){
+		
+	}
 }
