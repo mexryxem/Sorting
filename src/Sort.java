@@ -3,10 +3,11 @@ import java.util.Arrays;
 public class Sort {
 	
 	public static void main(String[] args){
-		int[] list1 = {1, 6, 7, 10, -3, -2, 6, 9}; 
-		int[] merged = new int[list1.length];
+		int[] list1 = {5, 1, 9, 7, 3};
+		int[] half = {1,2,3,4, -5, -4, -3, -2, -1};
+		int[] merged = new int[half.length];
 		
-		merge(list1, merged, 0, 4, 7);
+		merge(half, merged, 0, 4, half.length);
 		printArray(merged);
 	}
 	
@@ -58,13 +59,15 @@ public class Sort {
 	
 	/**
 	 * bugs: didn't get the last iteration
+	 * array index out of bounds
 	 * 
 	 */
 	public static void merge(int[] a, int[] temp, int list1min, int list2min, int list2end){
 		int counter = 0;
 		
-		while(list2min <= list2end){
-			if(a[list1min] <= a[list2min]){
+		while(list2min < list2end || list1min < list2min){
+			
+			if(a[list1min] < a[list2min] || a[list2min] < a[list2end]) {
 				temp[counter] = a[list1min];
 				list1min ++;
 			} else{
@@ -79,7 +82,13 @@ public class Sort {
 	}
 	
 	
-	public static void mergeSort(int[] arr){
+	public static void mergeSort(int[] a, int[] temp, int left, int right){
+		if(right <= left + 1) return;
+		
+		int mid = left + (right - left)/2;
+		mergeSort(a, temp, left, mid);
+		mergeSort(a, temp, mid, right);
+		merge(a, temp, left, mid, right);
 		
 	}
 }

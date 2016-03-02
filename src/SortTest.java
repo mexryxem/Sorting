@@ -20,7 +20,7 @@ public class SortTest {
 		
 		if(sortType == "selection") Sort.selectionSort(arr);
 		else if(sortType == "insertion") Sort.insertionSort(arr);
-		else if(sortType == "merge") Sort.mergeSort(arr);
+		else if(sortType == "merge") Sort.mergeSort(arr, new int[arr.length], 0, arr.length);
 		
 		assertArrayEquals(arr, sortedTest);
 	}
@@ -57,7 +57,7 @@ public class SortTest {
 	public void insertionTest3(){
 		sortingTest(testArr3, sortedTestArr3, "insertion");
 	}
-	
+
 	@Test
 	public void mergeTest1(){
 		sortingTest(testArr, sortedTestArr, "merge");
