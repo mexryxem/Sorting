@@ -3,16 +3,20 @@ import java.util.Arrays;
 public class Sort {
 	
 	public static void main(String[] args){
-		int[] half1 = {1, 3, 5, 7};
-		int[] half2 = {2, 4, 6, 8};
+		int[] half1 = {1, 3, 5, 7, 2, 4, 6, 8};
+		int[] half2 = new int[half1.length];
 		//int[] merged = new int[half.length];
 		
-		//merge2(half, merged, 0, 4, half.length);
-		printArray(merge3(new int[half1.length + half2.length], half1, half2));
+		int[] example = {3, 5, 8, 4};
+		
+		merge2(half1, half2, 0, 4, half1.length);
+		printArray(half1);
+		
+		System.out.println("done");
 	}
-	
 	private static void printArray(int[] arr){
 		
+		System.out.println();
 		for(int i = 0; i < arr.length; i ++){
 			System.out.print(arr[i] + "\t");
 		}
@@ -82,6 +86,10 @@ public class Sort {
 		
 	}
 	
+	/*public boolean inArray(int val, int ){
+		return 
+	}*/
+	
 	public static void merge2(int[] a, int[] temp, int list1min, int list2min, int list2end){
 		
 		int smallest1 = list1min;
@@ -90,15 +98,15 @@ public class Sort {
 		
 		int tempCounter = 0;
 		
-		while(smallest1 < list2min || smallest2 < end){
-			System.out.println(smallest1 + "\t" + smallest2);
+		while(smallest1 < list2min && smallest2 < end){
+			System.out.println("|" + smallest1 + "\t" + smallest2 + "\t" + tempCounter);
 			
-			if(a[smallest1] < a[smallest2]){
+			if(a[smallest1] <= a[smallest2]){
 				
 				temp[tempCounter] = a[smallest1];
 				smallest1 ++;
 				
-			} else if(a[smallest2] < a[smallest1]){
+			} else{
 				
 				temp[tempCounter] = a[smallest2];
 				if(smallest2 + 1 < end) smallest2++;
@@ -107,17 +115,28 @@ public class Sort {
 			
 			printArray(temp);
 			tempCounter++;
-			
-			
-			
-			
+		}
+		
+		if(smallest1 < smallest2 && smallest2 == end){
+			while(smallest1 < smallest2){
+				temp[tempCounter] = a[smallest1];
+				smallest1 ++;
+				tempCounter ++;
+			}
+		}
+		
+		if(smallest2 < end && smallest1 == smallest2){
+			while(smallest2 < end){
+				temp[tempCounter] = a[smallest2];
+				smallest2 ++;
+				tempCounter ++;
+			}
 			
 		}
 		
-		
-		
-		
-		//a = Arrays.copyOfRange(temp, list1min, list2end);
+		for(int i  = 0; i < temp.length; i ++){
+			a[i + list1min] = temp[i];
+		}
 		
 	}
 	
@@ -153,7 +172,7 @@ public class Sort {
 		int mid = left + (right - left)/2;
 		mergeSort(a, temp, left, mid);
 		mergeSort(a, temp, mid, right);
-		merge(a, temp, left, mid, right);
+		merge2(a, temp, left, mid, right);
 		
 	}
 }
