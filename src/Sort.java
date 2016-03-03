@@ -3,12 +3,12 @@ import java.util.Arrays;
 public class Sort {
 	
 	public static void main(String[] args){
-		int[] list1 = {5, 1, 9, 7, 3};
-		int[] half = {1,2,3,4, -5, -4, -3, -2, -1};
-		int[] merged = new int[half.length];
+		int[] half1 = {1, 3, 5, 7};
+		int[] half2 = {2, 4, 6, 8};
+		//int[] merged = new int[half.length];
 		
-		merge(half, merged, 0, 4, half.length);
-		printArray(merged);
+		//merge2(half, merged, 0, 4, half.length);
+		printArray(merge3(new int[half1.length + half2.length], half1, half2));
 	}
 	
 	private static void printArray(int[] arr){
@@ -57,6 +57,70 @@ public class Sort {
 		}
 	}
 	
+	public static int[] merge3(int[] merged, int[]left, int[] right){
+		
+		int leftIndex = 0;
+		int rightIndex = 0;
+		
+		int mergedIndex = 0;
+		
+		while(leftIndex < left.length || rightIndex < right.length){
+			
+			if(leftIndex < left.length && rightIndex < right.length && left[leftIndex] < right[rightIndex]){
+				merged[mergedIndex] = left[leftIndex];
+				leftIndex ++;
+			} else if(leftIndex < left.length && rightIndex < right.length && right[rightIndex] < left[leftIndex]){
+				merged[mergedIndex] = right[rightIndex];
+				rightIndex ++;
+			}
+			
+			mergedIndex ++;
+			
+		}
+		
+		return merged;
+		
+	}
+	
+	public static void merge2(int[] a, int[] temp, int list1min, int list2min, int list2end){
+		
+		int smallest1 = list1min;
+		int smallest2 = list2min;
+		int end = list2end;
+		
+		int tempCounter = 0;
+		
+		while(smallest1 < list2min || smallest2 < end){
+			System.out.println(smallest1 + "\t" + smallest2);
+			
+			if(a[smallest1] < a[smallest2]){
+				
+				temp[tempCounter] = a[smallest1];
+				smallest1 ++;
+				
+			} else if(a[smallest2] < a[smallest1]){
+				
+				temp[tempCounter] = a[smallest2];
+				if(smallest2 + 1 < end) smallest2++;
+				
+			}
+			
+			printArray(temp);
+			tempCounter++;
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		//a = Arrays.copyOfRange(temp, list1min, list2end);
+		
+	}
+	
 	/**
 	 * bugs: didn't get the last iteration
 	 * array index out of bounds
@@ -78,7 +142,8 @@ public class Sort {
 			counter ++;
 		}
 		
-		a = Arrays.copyOfRange(temp, list1min, list2end);
+		//a = Arrays.copyOfRange(temp, list1min, list2end);
+		for(int i = 0; i < a.length; i ++) a[i] = temp[i];
 	}
 	
 	
